@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -20,6 +17,7 @@ module.exports = {
         'mud-success': '#4caf50',
         'mud-warning': '#ff9800',
         'mud-info': '#2196f3',
+        'mud-danger': '#f44336',
       },
       fontFamily: {
         // 等宽字体，优先使用 JetBrains Mono
@@ -29,4 +27,3 @@ module.exports = {
   },
   plugins: [],
 }
-
