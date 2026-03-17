@@ -1,6 +1,20 @@
+import { useEffect } from 'react'
+import { DataLoader } from '@/utils/dataLoader'
 import './App.css'
 
 function App() {
+  useEffect(() => {
+    // 输出各数据集的条目数量
+    console.log('📊 数据层统计:')
+    console.log(`   物品: ${Object.keys(DataLoader.items).length} 个`)
+    console.log(`   怪物: ${Object.keys(DataLoader.monsters).length} 个`)
+    console.log(`   地点: ${Object.keys(DataLoader.places).length} 个`)
+    console.log(`   配方: ${Object.keys(DataLoader.recipes).length} 个`)
+    console.log(`   地牢: ${Object.keys(DataLoader.dungeons).length} 层`)
+    // 执行数据交叉引用验证
+    DataLoader.validate()
+  }, [])
+
   return (
     <div className="min-h-screen bg-mud-bg font-mono flex items-center justify-center">
       <div className="mud-panel text-center max-w-lg w-full mx-4">
