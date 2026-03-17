@@ -1,5 +1,3 @@
-import { useState } from 'react'
-import logo from './logo.svg'
 import './App.css'
 
 function App() {
@@ -11,9 +9,7 @@ function App() {
           超苦逼冒险者 - 复刻版
         </h1>
         {/* 副标题 */}
-        <p className="text-mud-text-dim text-sm mb-6">
-          MUD风格放置RPG
-        </p>
+        <p className="text-mud-text-dim text-sm mb-6">MUD风格放置RPG</p>
         {/* 分隔线 */}
         <div className="border-t border-mud-text-dim my-4" />
         {/* 状态信息 */}
