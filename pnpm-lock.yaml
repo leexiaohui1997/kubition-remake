@@ -8,9 +8,18 @@ importers:
 
   .:
     dependencies:
-      framer-motion:
-        specifier: ^12.38.0
-        version: 12.38.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@better-scroll/core':
+        specifier: ^2.5.1
+        version: 2.5.1
+      '@better-scroll/mouse-wheel':
+        specifier: ^2.5.1
+        version: 2.5.1
+      '@better-scroll/observe-dom':
+        specifier: ^2.5.1
+        version: 2.5.1
+      '@better-scroll/scroll-bar':
+        specifier: ^2.5.1
+        version: 2.5.1
       react:
         specifier: ^19.0.0
         version: 19.2.4
@@ -161,6 +170,21 @@ packages:
   '@babel/types@7.29.0':
     resolution: {integrity: sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==}
     engines: {node: '>=6.9.0'}
+
+  '@better-scroll/core@2.5.1':
+    resolution: {integrity: sha512-koKOuYA55dQ04FJRIVUpMGDr1hbCfWmfX0MGp1hKagkQSWSRpwblqACiwtggVauoj9aaJRJZ9hDsTM4weaavlg==}
+
+  '@better-scroll/mouse-wheel@2.5.1':
+    resolution: {integrity: sha512-DGnrirRMY6zMM7xwgx09D/cA9A//3J1/uDkq8iBVEyE5p0sEr/keQpjEfFHGkBRa505BnbBwdbN6f5lugEDSPw==}
+
+  '@better-scroll/observe-dom@2.5.1':
+    resolution: {integrity: sha512-TCMGFLRfpXBPIwtUV/efliUmfmrhSNI7NXdSyjdWjsLOS7dh3eFkmcom5ERVWMaXVELSmujGXLqobT+dT0C/jg==}
+
+  '@better-scroll/scroll-bar@2.5.1':
+    resolution: {integrity: sha512-i6r60pWG/ztkFK2j5Gj54I0LJb2jGh5TWJNQBoW0gUkp28B+0JvBFTwZn9tF7beZCBorKR7Hvvu4O9A1TJy94Q==}
+
+  '@better-scroll/shared-utils@2.5.1':
+    resolution: {integrity: sha512-AplkfSjXVYP9LZiD6JsKgmgQJ/mG4uuLmBuwLz8W5OsYc7AYTfN8kw6GqZ5OwCGoXkVhBGyd8NeC4xwYItp0aw==}
 
   '@esbuild/aix-ppc64@0.25.12':
     resolution: {integrity: sha512-Hhmwd6CInZ3dwpuGTF8fJG6yoWmsToE+vYgD4nytZVxcu1ulHpUQRAB1UJ8+N1Am3Mz4+xOByoQoSZf4D+CpkA==}
@@ -1007,20 +1031,6 @@ packages:
   fraction.js@5.3.4:
     resolution: {integrity: sha512-1X1NTtiJphryn/uLQz3whtY6jK3fTqoE3ohKs0tT+Ujr1W59oopxmoEh7Lu5p6vBaPbgoM0bzveAW4Qi5RyWDQ==}
 
-  framer-motion@12.38.0:
-    resolution: {integrity: sha512-rFYkY/pigbcswl1XQSb7q424kSTQ8q6eAC+YUsSKooHQYuLdzdHjrt6uxUC+PRAO++q5IS7+TamgIw1AphxR+g==}
-    peerDependencies:
-      '@emotion/is-prop-valid': '*'
-      react: ^18.0.0 || ^19.0.0
-      react-dom: ^18.0.0 || ^19.0.0
-    peerDependenciesMeta:
-      '@emotion/is-prop-valid':
-        optional: true
-      react:
-        optional: true
-      react-dom:
-        optional: true
-
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
@@ -1338,12 +1348,6 @@ packages:
 
   minimatch@3.1.5:
     resolution: {integrity: sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==}
-
-  motion-dom@12.38.0:
-    resolution: {integrity: sha512-pdkHLD8QYRp8VfiNLb8xIBJis1byQ9gPT3Jnh2jqfFtAsWUA3dEepDlsWe/xMpO8McV+VdpKVcp+E+TGJEtOoA==}
-
-  motion-utils@12.36.0:
-    resolution: {integrity: sha512-eHWisygbiwVvf6PZ1vhaHCLamvkSbPIeAYxWUuL3a2PD/TROgE7FvfHWTIH4vMl798QLfMw15nRqIaRDXTlYRg==}
 
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
@@ -1739,9 +1743,6 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  tslib@2.8.1:
-    resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
-
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -1998,6 +1999,24 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
+
+  '@better-scroll/core@2.5.1':
+    dependencies:
+      '@better-scroll/shared-utils': 2.5.1
+
+  '@better-scroll/mouse-wheel@2.5.1':
+    dependencies:
+      '@better-scroll/core': 2.5.1
+
+  '@better-scroll/observe-dom@2.5.1':
+    dependencies:
+      '@better-scroll/core': 2.5.1
+
+  '@better-scroll/scroll-bar@2.5.1':
+    dependencies:
+      '@better-scroll/core': 2.5.1
+
+  '@better-scroll/shared-utils@2.5.1': {}
 
   '@esbuild/aix-ppc64@0.25.12':
     optional: true
@@ -2906,15 +2925,6 @@ snapshots:
 
   fraction.js@5.3.4: {}
 
-  framer-motion@12.38.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
-    dependencies:
-      motion-dom: 12.38.0
-      motion-utils: 12.36.0
-      tslib: 2.8.1
-    optionalDependencies:
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-
   fs.realpath@1.0.0: {}
 
   fsevents@2.3.3:
@@ -3232,12 +3242,6 @@ snapshots:
   minimatch@3.1.5:
     dependencies:
       brace-expansion: 1.1.12
-
-  motion-dom@12.38.0:
-    dependencies:
-      motion-utils: 12.36.0
-
-  motion-utils@12.36.0: {}
 
   ms@2.1.3: {}
 
@@ -3713,8 +3717,6 @@ snapshots:
       typescript: 5.9.3
 
   ts-interface-checker@0.1.13: {}
-
-  tslib@2.8.1: {}
 
   type-check@0.4.0:
     dependencies:

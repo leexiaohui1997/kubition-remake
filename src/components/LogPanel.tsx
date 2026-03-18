@@ -2,12 +2,13 @@
  * 日志面板组件
  *
  * 显示冒险日志，支持入场动画、按类型着色、清除功能。
+ * 使用 BetterScroll 提供流畅滚动体验，新日志自动滚顶。
  * 响应式：PC 端 h-48 右侧 1/3 + 移动端撑满 h-40。
  */
 
-import { AnimatePresence, motion } from 'framer-motion'
 import { useGameStore } from '@/stores/gameStore'
 import type { LogType } from '@/stores/gameStore'
+import { useBetterScroll } from '@/hooks/useBetterScroll'
 
 /** 日志类型 → 文字颜色映射 */
 const LOG_COLOR_MAP: Record<LogType, string> = {
@@ -31,6 +32,13 @@ export function LogPanel() {
   const logs = useGameStore(state => state.logs)
   const clearLogs = useGameStore(state => state.clearLogs)
 
+  // 使用 BetterScroll 管理日志列表的滚动（新日志在顶部，自动滚顶）
+  const { wrapperRef } = useBetterScroll<HTMLDivElement>({
+    scrollY: true,
+    autoScrollTop: true,
+    deps: [logs.length],
+  })
+
   return (
     <div className="bg-mud-bg-secondary border border-mud-bg-tertiary rounded p-3 flex flex-col">
       {/* 标题栏 */}
@@ -44,26 +52,26 @@ export function LogPanel() {
         </button>
       </div>
 
-      {/* 日志列表 */}
-      <div className="h-40 md:h-48 overflow-y-auto bg-mud-bg rounded p-2 font-mono text-xs">
-        {logs.length === 0 ? (
-          <p className="text-mud-text-dim italic">暂无日志...</p>
-        ) : (
-          <AnimatePresence initial={false}>
-            {logs.map((log, index) => (
-              <motion.div
+      {/* 日志列表 — BetterScroll wrapper */}
+      <div
+        ref={wrapperRef}
+        className="h-40 md:h-48 overflow-hidden bg-mud-bg rounded p-2 font-mono text-xs relative"
+      >
+        {/* BetterScroll content — 必须是 wrapper 的唯一子元素 */}
+        <div>
+          {logs.length === 0 ? (
+            <p className="text-mud-text-dim italic">暂无日志...</p>
+          ) : (
+            logs.map((log, index) => (
+              <div
                 key={`${log.time}-${log.message}-${index}`}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                className={`py-0.5 leading-relaxed ${LOG_COLOR_MAP[log.type]}`}
+                className={`py-0.5 leading-relaxed animate-log-in ${LOG_COLOR_MAP[log.type]}`}
               >
                 <span className="text-mud-text-dim">{formatLogTime(log.time)}</span> {log.message}
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        )}
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   )

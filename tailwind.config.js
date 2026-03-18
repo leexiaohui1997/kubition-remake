@@ -23,6 +23,15 @@ module.exports = {
         // 等宽字体，优先使用 JetBrains Mono
         mono: ['"JetBrains Mono"', '"Fira Code"', '"Cascadia Code"', 'Consolas', 'monospace'],
       },
+      keyframes: {
+        'log-in': {
+          '0%': { opacity: '0', transform: 'translateX(-12px)' },
+          '100%': { opacity: '1', transform: 'translateX(0)' },
+        },
+      },
+      animation: {
+        'log-in': 'log-in 0.2s ease-out both',
+      },
     },
   },
   plugins: [],

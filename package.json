@@ -16,13 +16,18 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\""
   },
   "dependencies": {
-    "framer-motion": "^12.38.0",
+    "@better-scroll/core": "^2.5.1",
+    "@better-scroll/mouse-wheel": "^2.5.1",
+    "@better-scroll/observe-dom": "^2.5.1",
+    "@better-scroll/scroll-bar": "^2.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "zustand": "^5.0.12"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild"]
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
