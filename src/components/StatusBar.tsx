@@ -8,29 +8,14 @@
 
 import { useGameStore } from '@/stores/gameStore'
 import { usePlayerStatus } from '@/hooks/usePlayerStatus'
-
-/** 单项状态的配置 */
-interface StatConfig {
-  label: string
-  key: 'hp' | 'ps' | 'full' | 'moist'
-  color: string
-  lowColor: string
-}
-
-/** 四项状态配置 */
-const STAT_CONFIGS: StatConfig[] = [
-  { label: '生命', key: 'hp', color: 'bg-red-500', lowColor: 'bg-red-700' },
-  { label: '体力', key: 'ps', color: 'bg-yellow-500', lowColor: 'bg-yellow-700' },
-  { label: '饱食', key: 'full', color: 'bg-orange-500', lowColor: 'bg-orange-700' },
-  { label: '水分', key: 'moist', color: 'bg-blue-500', lowColor: 'bg-blue-700' },
-]
+import { STAT_CONFIGS } from '@/constants/styles'
 
 /**
  * 将 gameHour 转换为"第 X 天 HH:00"格式
  */
 function formatGameTime(gameHour: number): string {
   const day = Math.floor(gameHour / 24) + 1
-  const hour = gameHour % 24
+  const hour = Math.floor(gameHour % 24)
   const hourStr = String(hour).padStart(2, '0')
   return `第 ${day} 天 ${hourStr}:00`
 }

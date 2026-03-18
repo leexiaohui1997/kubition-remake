@@ -66,7 +66,7 @@ export interface UseBetterScrollOptions {
 }
 
 export function useBetterScroll<T extends HTMLElement = HTMLDivElement>(
-  options: UseBetterScrollOptions = {},
+  options: UseBetterScrollOptions = {}
 ) {
   const {
     scrollY = true,
@@ -86,7 +86,8 @@ export function useBetterScroll<T extends HTMLElement = HTMLDivElement>(
     const wrapper = wrapperRef.current
     if (!wrapper) return
 
-    const bs = new BScroll(wrapper as HTMLElement, {  // eslint-disable-line
+    const bs = new BScroll(wrapper as HTMLElement, {
+      // eslint-disable-line
       scrollY,
       scrollX,
       click: true,
@@ -146,28 +147,22 @@ export function useBetterScroll<T extends HTMLElement = HTMLDivElement>(
   }, [])
 
   /** 滚动到底部 */
-  const scrollToBottom = useCallback(
-    (time = 300) => {
-      const bs = bsRef.current
-      if (bs) {
-        bs.refresh()
-        bs.scrollTo(0, bs.maxScrollY, time)
-      }
-    },
-    [],
-  )
+  const scrollToBottom = useCallback((time = 300) => {
+    const bs = bsRef.current
+    if (bs) {
+      bs.refresh()
+      bs.scrollTo(0, bs.maxScrollY, time)
+    }
+  }, [])
 
   /** 滚动到顶部 */
-  const scrollToTop = useCallback(
-    (time = 300) => {
-      const bs = bsRef.current
-      if (bs) {
-        bs.refresh()
-        bs.scrollTo(0, 0, time)
-      }
-    },
-    [],
-  )
+  const scrollToTop = useCallback((time = 300) => {
+    const bs = bsRef.current
+    if (bs) {
+      bs.refresh()
+      bs.scrollTo(0, 0, time)
+    }
+  }, [])
 
   /** 手动刷新 */
   const refresh = useCallback(() => {

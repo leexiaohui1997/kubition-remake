@@ -9,21 +9,14 @@
 import { useGameStore } from '@/stores/gameStore'
 import type { LogType } from '@/stores/gameStore'
 import { useBetterScroll } from '@/hooks/useBetterScroll'
-
-/** 日志类型 → 文字颜色映射 */
-const LOG_COLOR_MAP: Record<LogType, string> = {
-  success: 'text-mud-success',
-  warning: 'text-mud-warning',
-  error: 'text-mud-danger',
-  info: 'text-mud-text-dim',
-}
+import { LOG_COLOR } from '@/constants/styles'
 
 /**
  * 将 gameHour 转换为"[第X天 HH:00]"格式的时间戳
  */
 function formatLogTime(gameHour: number): string {
   const day = Math.floor(gameHour / 24) + 1
-  const hour = gameHour % 24
+  const hour = Math.floor(gameHour % 24)
   const hourStr = String(hour).padStart(2, '0')
   return `[第${day}天 ${hourStr}:00]`
 }
@@ -65,7 +58,7 @@ export function LogPanel() {
             logs.map((log, index) => (
               <div
                 key={`${log.time}-${log.message}-${index}`}
-                className={`py-0.5 leading-relaxed animate-log-in ${LOG_COLOR_MAP[log.type]}`}
+                className={`py-0.5 leading-relaxed animate-log-in ${LOG_COLOR[log.type]}`}
               >
                 <span className="text-mud-text-dim">{formatLogTime(log.time)}</span> {log.message}
               </div>

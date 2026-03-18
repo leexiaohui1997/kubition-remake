@@ -82,3 +82,17 @@ export const TEMP_MAX = 10
 
 /** 体温最小值 */
 export const TEMP_MIN = -10
+
+// ========================
+// 进度条参数
+// ========================
+
+/** 采集进度更新间隔（毫秒） */
+export const GATHER_TICK_INTERVAL = 50
+/** 每次 tick 增加的采集进度值 */
+export const GATHER_TICK_INCREMENT = 2
+
+/** 移动进度更新间隔（毫秒） */
+export const TRAVEL_TICK_INTERVAL = 50
+/** 每次 tick 增加的移动进度值 */
+export const TRAVEL_TICK_INCREMENT = 2

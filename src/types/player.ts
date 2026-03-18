@@ -18,6 +18,14 @@ export interface StateValue {
 // 玩家状态
 // ========================
 
+/** 单项状态栏的配置 */
+export interface StatConfig {
+  label: string
+  key: 'hp' | 'ps' | 'full' | 'moist'
+  color: string
+  lowColor: string
+}
+
 /** 玩家核心状态 */
 export interface PlayerState {
   /** 生命值 */

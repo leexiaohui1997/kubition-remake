@@ -61,6 +61,18 @@ interface GameStoreState {
   /** 装备槽位 */
   equipment: PlayerEquipment
 
+  // —— 运行时状态（不参与持久化） ——
+  /** 是否正在移动中 */
+  isTraveling: boolean
+  /** 移动进度（0~100） */
+  travelProgress: number
+  /** 移动目标地点 ID */
+  travelTarget: string | null
+  /** 是否正在采集中 */
+  isGathering: boolean
+  /** 采集进度（0~100） */
+  gatherProgress: number
+
   // —— 时间推进 ——
   /** 推进指定小时数并结算状态变化 */
   advanceTime: (hours: number) => void
@@ -74,6 +86,22 @@ interface GameStoreState {
   updatePlayerState: (
     updates: Partial<Record<StatKey, Partial<{ current: number; max: number }>>>
   ) => void
+
+  // —— 运行时状态操作 ——
+  /** 开始移动到目标地点 */
+  startTravel: (targetPlaceId: string) => void
+  /** 更新移动进度 */
+  updateTravelProgress: (progress: number) => void
+  /** 完成移动 */
+  completeTravel: () => void
+  /** 开始采集 */
+  startGathering: () => void
+  /** 更新采集进度 */
+  updateGatherProgress: (progress: number) => void
+  /** 完成采集 */
+  completeGathering: () => void
+  /** 取消当前操作（移动或采集） */
+  cancelAction: () => void
 
   // —— 背包操作 ——
   /** 添加物品到背包 */
@@ -144,6 +172,13 @@ export const useGameStore = create<GameStoreState>()(
       maxInventory: BAG_BASE_SIZE,
       equipment: {},
 
+      // —— 运行时状态初始值 ——
+      isTraveling: false,
+      travelProgress: 0,
+      travelTarget: null,
+      isGathering: false,
+      gatherProgress: 0,
+
       // —— 时间推进与状态结算 ——
       advanceTime: (hours: number) => {
         // 参数校验：hours ≤ 0 直接返回
@@ -180,8 +215,11 @@ export const useGameStore = create<GameStoreState>()(
           }
 
           // 4. 生成时间推进日志
+          // 使用 Math.round 修正浮点精度（保留1位小数）
+          const newGameHour = Math.round((state.gameHour + hours) * 10) / 10
+
           const newLog: GameLog = {
-            time: state.gameHour + hours,
+            time: newGameHour,
             message: `时间过去了 ${hours} 小时...`,
             type: 'info',
           }
@@ -189,7 +227,7 @@ export const useGameStore = create<GameStoreState>()(
           const newLogs = [newLog, ...state.logs].slice(0, LOG_MAX_COUNT)
 
           return {
-            gameHour: state.gameHour + hours,
+            gameHour: newGameHour,
             player,
             logs: newLogs,
           }
@@ -240,6 +278,55 @@ export const useGameStore = create<GameStoreState>()(
             }
           }
           return { player }
+        })
+      },
+
+      // —— 运行时状态操作 ——
+      startTravel: (targetPlaceId: string) => {
+        set({
+          isTraveling: true,
+          travelProgress: 0,
+          travelTarget: targetPlaceId,
+        })
+      },
+
+      updateTravelProgress: (progress: number) => {
+        set({ travelProgress: Math.min(progress, 100) })
+      },
+
+      completeTravel: () => {
+        set({
+          isTraveling: false,
+          travelProgress: 0,
+          travelTarget: null,
+        })
+      },
+
+      startGathering: () => {
+        set({
+          isGathering: true,
+          gatherProgress: 0,
+        })
+      },
+
+      updateGatherProgress: (progress: number) => {
+        set({ gatherProgress: Math.min(progress, 100) })
+      },
+
+      completeGathering: () => {
+        set({
+          isGathering: false,
+          gatherProgress: 0,
+        })
+      },
+
+      cancelAction: () => {
+        set({
+          isTraveling: false,
+          travelProgress: 0,
+          travelTarget: null,
+          isGathering: false,
+          gatherProgress: 0,
         })
       },
 
@@ -311,7 +398,7 @@ export const useGameStore = create<GameStoreState>()(
     {
       // persist 中间件配置
       name: 'kubition-game-storage',
-      // 只持久化必要字段，排除 logs
+      // 只持久化必要字段，排除 logs 和运行时状态
       partialize: state => ({
         player: state.player,
         inventory: state.inventory,
