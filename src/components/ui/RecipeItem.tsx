@@ -49,7 +49,7 @@ export function RecipeItem({
     const parts: string[] = []
     for (const [itemId, amount] of Object.entries(recipe.materials)) {
       addItem(itemId, amount)
-      parts.push(`${itemId} x${amount}`)
+      parts.push(`{${itemId}} x${amount}`)
     }
     addLog(`获得材料：${parts.join('、')}`, 'warning')
   }

@@ -8,7 +8,7 @@
 import { useGameStore } from '@/stores/gameStore'
 import type { StatKey } from '@/stores/gameStore'
 import type { ResourceNode, ItemEffect } from '@/types/game'
-import { getItem, getItemName } from '@/data/items'
+import { getItem } from '@/data/items'
 
 // ========================
 // 类型定义
@@ -45,10 +45,9 @@ export function checkGatherRequirements(resource: ResourceNode): GatherCheckResu
   if (resource.requiredTool) {
     for (const [toolId, amount] of Object.entries(resource.requiredTool)) {
       if (!state.hasItem(toolId, amount)) {
-        const toolName = getItemName(toolId)
         return {
           canGather: false,
-          reason: `缺少工具「${toolName}」，无法${resource.actionName}！`,
+          reason: `缺少工具「{${toolId}}」，无法${resource.actionName}！`,
         }
       }
     }
@@ -83,7 +82,7 @@ export function executeGather(resource: ResourceNode): void {
   const dropNames: string[] = []
   for (const [itemId, amount] of Object.entries(resource.drops)) {
     addItem(itemId, amount)
-    dropNames.push(`${getItemName(itemId)}x${amount}`)
+    dropNames.push(`{${itemId}}x${amount}`)
   }
 
   // 4. 生成采集成功日志
@@ -144,7 +143,7 @@ export function useItem(itemId: string): void {
   removeItem(itemId, 1)
 
   // 生成日志
-  let logMessage = `使用了 ${item.name}`
+  let logMessage = `使用了 {${itemId}}`
   if (positiveEffects.length > 0) {
     logMessage += `，恢复了 ${positiveEffects.join('和')}`
   }

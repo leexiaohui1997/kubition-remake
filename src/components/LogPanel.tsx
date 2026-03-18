@@ -10,6 +10,7 @@ import { useGameStore } from '@/stores/gameStore'
 import type { LogType } from '@/stores/gameStore'
 import { useBetterScroll } from '@/hooks/useBetterScroll'
 import { LOG_COLOR } from '@/constants/styles'
+import { LogMessage } from '@/components/LogMessage'
 
 /**
  * 将 gameHour 转换为"[第X天 HH:00]"格式的时间戳
@@ -60,7 +61,7 @@ export function LogPanel() {
                 key={`${log.time}-${log.message}-${index}`}
                 className={`py-0.5 leading-relaxed animate-log-in ${LOG_COLOR[log.type]}`}
               >
-                <span className="text-mud-text-dim">{formatLogTime(log.time)}</span> {log.message}
+                <span className="text-mud-text-dim">{formatLogTime(log.time)}</span> <LogMessage message={log.message} />
               </div>
             ))
           )}

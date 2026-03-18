@@ -9,7 +9,7 @@
 import { useCallback, useEffect, useRef } from 'react'
 import { useGameStore } from '@/stores/gameStore'
 import { isActionBusy } from '@/utils/actionGuard'
-import { getItemName } from '@/data/items'
+
 import { GATHER_TICK_INTERVAL, GATHER_TICK_INCREMENT } from '@/constants/game'
 import type { Recipe } from '@/types/game'
 
@@ -58,8 +58,7 @@ export function useCrafting() {
       for (const [itemId, amount] of Object.entries(recipe.materials)) {
         const owned = state.inventory[itemId] ?? 0
         if (owned < amount) {
-          const itemName = getItemName(itemId)
-          missingMaterials.push(`${itemName} x${amount - owned}`)
+          missingMaterials.push(`{${itemId}} x${amount - owned}`)
         }
       }
       if (missingMaterials.length > 0) {
@@ -90,7 +89,7 @@ export function useCrafting() {
         state.removeItem(itemId, amount)
       }
 
-      addLog(`开始制作：${recipe.name}...`, 'info')
+      addLog(`开始制作：{${recipe.id}}...`, 'info')
 
       // 启动制造状态
       startCrafting()
@@ -120,7 +119,7 @@ export function useCrafting() {
           useGameStore.getState().advanceTime(recipe.timeCost)
 
           // 写入成功日志
-          addLog(`制作完成：${recipe.name} x${amount}`, 'success')
+          addLog(`制作完成：{${recipe.id}} x${amount}`, 'success')
         }
       }, GATHER_TICK_INTERVAL)
     },
