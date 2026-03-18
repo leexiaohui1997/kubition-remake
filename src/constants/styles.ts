@@ -6,16 +6,44 @@
  */
 
 import type { StatConfig } from '@/types/player'
+import { ItemType } from '@/types/game'
 
 /** 物品类型对应的颜色 */
-export const ITEM_TYPE_COLOR: Record<string, string> = {
-  food: 'text-green-400',
-  cooked: 'text-green-300',
-  weapon: 'text-red-400',
-  equip: 'text-blue-400',
-  met: 'text-mud-text-dim',
-  poizon: 'text-purple-400',
-  tool: 'text-yellow-400',
+export const ITEM_TYPE_COLOR: Record<ItemType, string> = {
+  // ── 普通物品 ──
+  [ItemType.Food]:    'text-amber-400',   // 食材 —— 琥珀色
+  [ItemType.Cooked]:  'text-amber-300',   // 熟食 —— 浅琥珀色
+  [ItemType.Weapon]:  'text-red-400',     // 武器 —— 红色
+  [ItemType.Equip]:   'text-blue-300',    // 装备 —— 蓝色
+  [ItemType.Met]:     'text-mud-text-dim',// 材料 —— 暗色
+  [ItemType.Bullet]:  'text-mud-text-dim',// 弹药 —— 暗色
+  [ItemType.Poizon]:  'text-rose-400',    // 毒药 —— 玫红色
+  [ItemType.Tool]:    'text-green-400',   // 道具 —— 绿色
+  [ItemType.Quest]:   'text-purple-400',  // 任务 —— 紫色
+  [ItemType.Seed]:    'text-lime-400',    // 种子 —— 黄绿色
+  [ItemType.Art]:     'text-yellow-400',  // 艺术品 —— 金黄色
+  [ItemType.Special]: 'text-purple-300',  // 特殊 —— 浅紫色
+  // ── 科技树节点（统一青色系）──
+  [ItemType.UnknownBonus]:       'text-cyan-400',
+  [ItemType.BigBoxSizeBonus]:    'text-cyan-400',
+  [ItemType.BagSizeBonus]:       'text-cyan-400',
+  [ItemType.FarmSizeBonus]:      'text-cyan-400',
+  [ItemType.AlcoSizeBonus]:      'text-cyan-400',
+  [ItemType.TrapSizeBonus]:      'text-cyan-400',
+  [ItemType.WellBonus]:          'text-cyan-400',
+  [ItemType.MakeSpeed]:          'text-cyan-400',
+  [ItemType.CookerUpdate]:       'text-cyan-400',
+  [ItemType.DurableUpdate]:      'text-cyan-400',
+  [ItemType.MagicDurableUpdate]: 'text-cyan-400',
+  [ItemType.CollectDec]:         'text-cyan-400',
+  [ItemType.TrapChance]:         'text-cyan-400',
+  [ItemType.TrapGet]:            'text-cyan-400',
+  [ItemType.LockUpdate]:         'text-cyan-400',
+  [ItemType.SecurityBox]:        'text-cyan-400',
+  [ItemType.MapBonus]:           'text-cyan-400',
+  [ItemType.BeaconMax]:          'text-cyan-400',
+  [ItemType.SleepPlace]:         'text-cyan-400',
+  [ItemType.ShowerPlace]:        'text-cyan-400',
 }
 
 /** 日志类型 → 文字颜色映射 */

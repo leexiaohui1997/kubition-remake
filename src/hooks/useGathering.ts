@@ -8,6 +8,7 @@
 
 import { useCallback, useEffect, useRef } from 'react'
 import { useGameStore } from '@/stores/gameStore'
+import { isActionBusy } from '@/utils/actionGuard'
 import { checkGatherRequirements, executeGather } from '@/systems/GatheringSystem'
 import { GATHER_TICK_INTERVAL, GATHER_TICK_INCREMENT } from '@/constants/game'
 import type { ResourceNode } from '@/types/game'
@@ -35,8 +36,8 @@ export function useGathering() {
    */
   const gather = useCallback(
     (resource: ResourceNode) => {
-      // 如果正在采集或移动中，忽略
-      if (useGameStore.getState().isGathering || useGameStore.getState().isTraveling) return
+      // 如果正在采集、移动或制造中，忽略
+      if (isActionBusy()) return
 
       // 前置检查
       const checkResult = checkGatherRequirements(resource)

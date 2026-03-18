@@ -19,7 +19,8 @@
 import { useState, useRef, useCallback, useLayoutEffect, useEffect, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 import type { Item } from '@/types/game'
-import { EFFECT_LABEL, WEAPON_TYPE_LABEL, EQUIP_SLOT_LABEL } from '@/constants/labels'
+import { EFFECT_LABEL, WEAPON_TYPE_LABEL, EQUIP_SLOT_LABEL, ITEM_TYPE_LABEL } from '@/constants/labels'
+import { ITEM_TYPE_COLOR } from '@/constants/styles'
 
 interface ItemTooltipProps {
   /** 物品数据 */
@@ -176,6 +177,20 @@ export function ItemTooltip({ item, children }: ItemTooltipProps) {
 function TooltipContent({ item }: { item: Item }) {
   return (
     <div className="space-y-1.5">
+      {/* 物品类型 + 名称（同一行） */}
+      {(item.type || item.name) && (
+        <div className="flex items-baseline gap-1.5">
+          {item.name && (
+            <span className="text-sm font-bold text-mud-text">{item.name}</span>
+          )}
+          {item.type && (
+            <span className={`text-[10px] font-semibold ${ITEM_TYPE_COLOR[item.type]}`}>
+              [{ITEM_TYPE_LABEL[item.type] ?? item.type}]
+            </span>
+          )}
+        </div>
+      )}
+
       {/* 描述 */}
       {item.desc && <p className="text-mud-text leading-relaxed">{item.desc}</p>}
 

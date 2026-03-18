@@ -96,3 +96,10 @@ export const GATHER_TICK_INCREMENT = 2
 export const TRAVEL_TICK_INTERVAL = 50
 /** 每次 tick 增加的移动进度值 */
 export const TRAVEL_TICK_INCREMENT = 2
+
+// ========================
+// 调试模式
+// ========================
+
+/** 是否为调试模式，调试模式下会显示额外的调试按钮和日志 */
+export const DEBUG_MODE = true

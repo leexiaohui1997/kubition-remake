@@ -8,40 +8,74 @@
 // ========================
 
 /** 物品类型（与原始项目 TYPE_DATA 一致） */
-export type ItemType =
-  | 'food' // 食材
-  | 'cooked' // 食品（烹饪后）
-  | 'weapon' // 武器
-  | 'equip' // 装备
-  | 'met' // 材料
-  | 'bullet' // 弹药
-  | 'poizon' // 药剂（原始数据使用 poizon）
-  | 'tool' // 道具
-  | 'quest' // 任务物品
-  | 'seed' // 种子
-  | 'art' // 工艺品
-  | 'special' // 技能提升
-  // 以下为科技/建筑相关物品类型
-  | 'securityBox' // 保险箱
-  | 'makeSpeed' // 制作速度加成
-  | 'collectDec' // 采集消耗减少
-  | 'trapGet' // 陷阱收益加成
-  | 'trapChance' // 捕获几率加成
-  | 'lockUpdate' // 锁具升级
-  | 'durableUpdate' // 耐久升级
-  | 'magicDurableUpdate' // 魔法耐久升级
-  | 'cookerUpdate' // 烹饪台升级
-  | 'bagSizeBonus' // 背包容量加成
-  | 'bigBoxSizeBonus' // 大箱子容量加成
-  | 'farmSizeBonus' // 农田容量加成
-  | 'trapSizeBonus' // 陷阱容量加成
-  | 'alcoSizeBonus' // 酿酒容量加成
-  | 'wellBonus' // 水井加成
-  | 'mapBonus' // 地图加成
-  | 'beaconMax' // 信标上限
-  | 'unknownBonus' // 未知加成
-  | 'sleepPlace' // 睡眠设施
-  | 'showerPlace' // 洗浴设施
+export enum ItemType {
+  // ── 普通物品 ──
+  /** 食材（20个）—— 未加工的原始食物，可直接食用或用于烹饪 */
+  Food               = 'food',
+  /** 熟食（47个）—— 经过加工/烹饪的食物，通常有更好的效果 */
+  Cooked             = 'cooked',
+  /** 武器（76个）—— 可装备的攻击性武器（含近战/魔法/射击） */
+  Weapon             = 'weapon',
+  /** 装备（66个）—— 可穿戴的防具/饰品，含 equipType 字段区分槽位 */
+  Equip              = 'equip',
+  /** 材料（40个）—— 合成/制作所需的原材料（金属、矿石、生物材料等） */
+  Met                = 'met',
+  /** 弹药（2个）—— 射击武器所需的弹药 */
+  Bullet             = 'bullet',
+  /** 毒药（8个）—— 具有中毒/负面效果的物品（原始数据拼写为 poizon） */
+  Poizon             = 'poizon',
+  /** 道具（8个）—— 功能性道具，如卷轴、钥匙等 */
+  Tool               = 'tool',
+  /** 任务（9个）—— 与特定任务相关的物品，通常无法交易 */
+  Quest              = 'quest',
+  /** 种子 —— 可种植的种子 */
+  Seed               = 'seed',
+  /** 艺术品（3个）—— 装饰性物品，主要用于出售获取金币 */
+  Art                = 'art',
+  /** 特殊（12个）—— 特殊功能物品（如技能提升道具） */
+  Special            = 'special',
+  // ── 科技树节点（研究后生效，不进入背包）──
+  /** 科技-解锁（15个）—— 研究后解锁新配方或新能力（铁匠、炼金、裁缝等） */
+  UnknownBonus       = 'unknownBonus',
+  /** 科技-箱子扩容（22个）—— 每级增加箱子存储空间 */
+  BigBoxSizeBonus    = 'bigBoxSizeBonus',
+  /** 科技-背包扩容（8个）—— 每级增加背包存储空间 */
+  BagSizeBonus       = 'bagSizeBonus',
+  /** 科技-农田扩建（6个）—— 每级增加农田种植格数 */
+  FarmSizeBonus      = 'farmSizeBonus',
+  /** 科技-酒桶扩建（6个）—— 每级增加酒桶容量 */
+  AlcoSizeBonus      = 'alcoSizeBonus',
+  /** 科技-陷阱扩容（2个）—— 每级增加陷阱数量上限 */
+  TrapSizeBonus      = 'trapSizeBonus',
+  /** 科技-水井产量（7个）—— 每级增加水井每日产水量 */
+  WellBonus          = 'wellBonus',
+  /** 科技-制作速度（5个）—— 每级提升物品制作速度 */
+  MakeSpeed          = 'makeSpeed',
+  /** 科技-炊具升级（5个）—— 每级加快烹饪速度 */
+  CookerUpdate       = 'cookerUpdate',
+  /** 科技-锻造强化（5个）—— 每级增加非魔法武器耐久度，或解锁工具制作 */
+  DurableUpdate      = 'durableUpdate',
+  /** 科技-魔法提炼（3个）—— 每级增加魔法武器耐久度 */
+  MagicDurableUpdate = 'magicDurableUpdate',
+  /** 科技-采集优化（4个）—— 每级减少采集行动的体力消耗 */
+  CollectDec         = 'collectDec',
+  /** 科技-陷阱效率（4个）—— 每级提升陷阱捕获几率 */
+  TrapChance         = 'trapChance',
+  /** 科技-陷阱收益（3个）—— 每级增加陷阱的掉落收益 */
+  TrapGet            = 'trapGet',
+  /** 科技-门锁升级（3个）—— 每级延长盗贼破门间隔天数 */
+  LockUpdate         = 'lockUpdate',
+  /** 科技-保险箱（5个）—— 每级减少失窃数量 */
+  SecurityBox        = 'securityBox',
+  /** 科技-地图测绘（4个）—— 每级在地图上解锁新地点 */
+  MapBonus           = 'mapBonus',
+  /** 科技-商队马车（4个）—— 每级增加商人最大交易量 */
+  BeaconMax          = 'beaconMax',
+  /** 科技-睡眠设施（5个）—— 提供睡眠场所，影响休息恢复效率 */
+  SleepPlace         = 'sleepPlace',
+  /** 科技-洗浴设施（2个）—— 提供洗澡/废物处理功能 */
+  ShowerPlace        = 'showerPlace',
+}
 
 /** 武器类型 */
 export type WeaponType = 'melee' | 'shoot' | 'magic'

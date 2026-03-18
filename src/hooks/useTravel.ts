@@ -8,6 +8,7 @@
 
 import { useCallback, useEffect, useRef } from 'react'
 import { useGameStore } from '@/stores/gameStore'
+import { isActionBusy } from '@/utils/actionGuard'
 import { getPlace, getPlaceName } from '@/data/places'
 import { TRAVEL_TICK_INTERVAL, TRAVEL_TICK_INCREMENT } from '@/constants/game'
 
@@ -36,8 +37,8 @@ export function useTravel() {
    */
   const travel = useCallback(
     (targetPlaceId: string) => {
-      // 如果正在移动中，忽略重复调用
-      if (useGameStore.getState().isTraveling || useGameStore.getState().isGathering) return
+      // 如果正在移动、采集或制造中，忽略重复调用
+      if (isActionBusy()) return
 
       const place = getPlace(targetPlaceId)
       if (!place) {

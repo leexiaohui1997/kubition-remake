@@ -11,7 +11,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { useBetterScroll } from '@/hooks/useBetterScroll'
 import { getItem } from '@/data/items'
 import { useItem } from '@/systems/GatheringSystem'
-import { ItemTooltip } from '@/components/ItemTooltip'
+import { ItemName } from '@/components/ItemName'
 import { ITEM_TYPE_LABEL } from '@/constants/labels'
 import { ITEM_TYPE_COLOR } from '@/constants/styles'
 
@@ -68,9 +68,7 @@ export function Inventory() {
               >
                 {/* 物品信息 */}
                 <div className="flex items-center gap-2 min-w-0 flex-1">
-                  <ItemTooltip item={item}>
-                    <span className="text-mud-text truncate">{item.name}</span>
-                  </ItemTooltip>
+                  <ItemName item={item} />
                   <span className={`text-[10px] ${typeColor}`}>[{typeLabel}]</span>
                   <span className="text-mud-text-dim">x{count}</span>
                 </div>

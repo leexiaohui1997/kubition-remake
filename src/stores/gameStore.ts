@@ -72,6 +72,14 @@ interface GameStoreState {
   isGathering: boolean
   /** 采集进度（0~100） */
   gatherProgress: number
+  /** 是否正在制造中 */
+  isCrafting: boolean
+  /** 制造进度（0~100） */
+  craftProgress: number
+
+  // —— 持久化状态 ——
+  /** 已解锁的科技 ID 列表 */
+  unlockedSciences: string[]
 
   // —— 时间推进 ——
   /** 推进指定小时数并结算状态变化 */
@@ -100,6 +108,14 @@ interface GameStoreState {
   updateGatherProgress: (progress: number) => void
   /** 完成采集 */
   completeGathering: () => void
+  /** 开始制造 */
+  startCrafting: () => void
+  /** 更新制造进度 */
+  setCraftProgress: (progress: number) => void
+  /** 完成制造 */
+  finishCrafting: () => void
+  /** 解锁科技 */
+  unlockScience: (scienceId: string) => void
   /** 取消当前操作（移动或采集） */
   cancelAction: () => void
 
@@ -178,6 +194,11 @@ export const useGameStore = create<GameStoreState>()(
       travelTarget: null,
       isGathering: false,
       gatherProgress: 0,
+      isCrafting: false,
+      craftProgress: 0,
+
+      // —— 持久化状态初始值 ——
+      unlockedSciences: [],
 
       // —— 时间推进与状态结算 ——
       advanceTime: (hours: number) => {
@@ -320,6 +341,31 @@ export const useGameStore = create<GameStoreState>()(
         })
       },
 
+      startCrafting: () => {
+        set({
+          isCrafting: true,
+          craftProgress: 0,
+        })
+      },
+
+      setCraftProgress: (progress: number) => {
+        set({ craftProgress: Math.min(progress, 100) })
+      },
+
+      finishCrafting: () => {
+        set({
+          isCrafting: false,
+          craftProgress: 0,
+        })
+      },
+
+      unlockScience: (scienceId: string) => {
+        set(state => {
+          if (state.unlockedSciences.includes(scienceId)) return {}
+          return { unlockedSciences: [...state.unlockedSciences, scienceId] }
+        })
+      },
+
       cancelAction: () => {
         set({
           isTraveling: false,
@@ -327,6 +373,8 @@ export const useGameStore = create<GameStoreState>()(
           travelTarget: null,
           isGathering: false,
           gatherProgress: 0,
+          isCrafting: false,
+          craftProgress: 0,
         })
       },
 
@@ -405,6 +453,7 @@ export const useGameStore = create<GameStoreState>()(
         equipment: state.equipment,
         currentPlace: state.currentPlace,
         gameHour: state.gameHour,
+        unlockedSciences: state.unlockedSciences,
       }),
     }
   )
