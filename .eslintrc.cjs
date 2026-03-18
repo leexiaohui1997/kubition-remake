@@ -33,7 +33,8 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     // 允许使用 any（可根据需要收紧）
     '@typescript-eslint/no-explicit-any': 'warn',
-    // 未使用变量警告
+    // 未使用变量警告（禁用基础规则，使用 TS 版本以避免误报）
+    'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     // React Hooks 规则
     'react-hooks/rules-of-hooks': 'error',
